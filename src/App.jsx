@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { React, useEffect, useState } from "react";
+import { React, useCallback, useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -8,22 +7,33 @@ function App() {
   const [charAllow ,setcharAllow] = useState(false);
   let [Password ,setPassword] = useState("");
 
-  useEffect(()=>{
-    const passwordGenerator = () => {
+
+  let passwordGeneratorfn = useCallback(()=>{
       let aplhabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
       let numbers = "0123456789";
-      let specialChar = "~!@#$%^&*<>.?/";;
+      let specialChar = "~!@#$%^&*<>.?/";
       let pass = "";
-      for (let i = 1; i <=length; i++) {
-        let index = Math.floor(Math.random() * length + 1);
+      if (charAllow) {
+        aplhabet += specialChar;
+        console.log(aplhabet);
+      }
+      if (numAllow) {
+        aplhabet += numbers;
+        console.log(aplhabet);
+      }
+      for (let i = 1; i <= length; i++) {
+        let index = Math.floor(Math.random() * aplhabet.length + 1);
         pass += aplhabet.charAt(index);
       }
       setPassword(pass);
-    };
-    passwordGenerator()
-  },[])
-  console.log(Password)
+    },[length,charAllow,numAllow,setPassword])
 
+  // console.log(passwordGeneratorfn);
+
+
+  useEffect(()=>{ 
+    passwordGeneratorfn();
+  },[length,numAllow,charAllow,passwordGeneratorfn])
   return (
     <>
       <div className="main">
@@ -49,17 +59,24 @@ function App() {
                 min={6}
                 max={24}
                 defaultValue={8}
+                onChange={(event)=>{
+                  setLength(event.target.value);
+                }}
               />
               :length
             </label>
 
             <label>
-              <input type="checkbox" className="checkbox"/>
+              <input type="checkbox" className="checkbox" onChange={()=>{
+                setnumAllow((prev)=>!prev);
+              }} defaultChecked={numAllow} />
               :Numbers
             </label>
 
             <label>
-              <input type="checkbox" className="checkbox"/>
+              <input type="checkbox" className="checkbox" onChange={()=>{
+                setcharAllow((prev)=>!prev);
+              }} defaultChecked={charAllow} />
               :SpecialChar
             </label>
 

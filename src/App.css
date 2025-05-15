@@ -53,6 +53,7 @@
     background-color: beige;
     border: none;
     border-radius: 15px;
+    cursor: pointer;
 }
 .param-div{
     display: flex;
@@ -61,4 +62,7 @@
 label{
     font-size: large;
     font-weight: bold;
+}
+input{
+    cursor: pointer;
 }
