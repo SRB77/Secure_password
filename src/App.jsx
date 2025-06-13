@@ -15,11 +15,11 @@ function App() {
       let pass = "";
       if (charAllow) {
         aplhabet += specialChar;
-        console.log(aplhabet);
+        // console.log(aplhabet);
       }
       if (numAllow) {
         aplhabet += numbers;
-        console.log(aplhabet);
+        // console.log(aplhabet);
       }
       for (let i = 1; i <= length; i++) {
         let index = Math.floor(Math.random() * aplhabet.length + 1);
